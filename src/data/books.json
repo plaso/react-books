@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "title": "The name of the wind",
+    "rating": 10,
+    "awarded": true
+  },
+  {
+    "id": 2,
+    "title": "Harry Potter",
+    "rating": 8,
+    "awarded": false
+  },
+  {
+    "id": 3,
+    "title": "Mistborn",
+    "rating": 9
+  }
+]
