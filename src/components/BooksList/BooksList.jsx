@@ -5,6 +5,12 @@ import BookItem from './BookItem';
 const BooksList = () => {
   const [books, setBooks] = useState(booksJSON);
 
+  const onDeleteBook = (id) => {
+    const newBooks = books.filter((book) => book.id !== id);
+
+    setBooks(newBooks)
+  }
+
   return (
     <div className="BooksList">
       <table className="table table-hover">
@@ -14,11 +20,12 @@ const BooksList = () => {
             <th scope="col">Title</th>
             <th scope="col">Rating</th>
             <th scope="col">Awarded</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
           {books.map(book => (
-            <BookItem key={book.id} {...book} />
+            <BookItem key={book.id} {...book} onDelete={() => onDeleteBook(book.id)} />
           ))}
         </tbody>
       </table>

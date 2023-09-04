@@ -1,4 +1,4 @@
-const BookItem = ({ title, rating, awarded, id }) => {
+const BookItem = ({ title, rating, awarded, id, onDelete }) => {
   const isAwarded = () => {
     if (awarded === true) {
       return 'Yes'
@@ -14,6 +14,11 @@ const BookItem = ({ title, rating, awarded, id }) => {
       <td>{title}</td>
       <td>{rating}</td>
       <td>{isAwarded()}</td>
+      <td>
+        <button className="btn btn-danger" onClick={onDelete}>
+          Delete
+        </button>
+      </td>
     </tr>
   )
 }
