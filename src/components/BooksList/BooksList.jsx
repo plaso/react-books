@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import booksJSON from '../../data/books.json';
 import BookItem from './BookItem';
+import Button from '../Button/Button';
 
 const SORT_BY_OPTIONS = ['Title', 'Rating'];
 
@@ -68,20 +69,23 @@ const BooksList = () => {
           <>
             <div className="flex">
               <div className="btn-group me-3" role="group" aria-label="Basic example">
-                {SORT_BY_OPTIONS.map((option, i) => (
-                  <button
-                    key={i} type="button"
-                    className={`btn btn-primary ${sortBy === option ? 'active' : ''}`}
-                    onClick={() => handleSortByButton(option)}
-                  >
+                {SORT_BY_OPTIONS.map((option) => (
+                  // <button
+                  //   key={i} type="button"
+                  //   className={`btn btn-primary ${sortBy === option ? 'active' : ''}`}
+                  //   onClick={() => handleSortByButton(option)}
+                  // >
+                  //   {option}
+                  // </button>
+                  <Button key={option} extraClassName={sortBy === option ? 'active' : ''} onClick={() => handleSortByButton(option)}>
                     {option}
-                  </button>
+                  </Button>
                 ))}
               </div>
 
-              <button className="btn btn-primary" onClick={addRandomBook}>
+              <Button onClick={addRandomBook}>
                 Add random book
-              </button>
+              </Button>
             </div>
 
             <table className="table table-hover mt-3">
