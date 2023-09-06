@@ -2,14 +2,18 @@ import { useState } from 'react';
 import booksJSON from '../../data/books.json';
 import BookItem from './BookItem';
 import Button from '../Button/Button';
+import useToggle from '../../hooks/useToggle';
+import BookForm from '../BookForm/BookForm';
 
 const SORT_BY_OPTIONS = ['Title', 'Rating'];
 
 const INITIAL_BOOKS = booksJSON.splice(0, 2);
 
 const BooksList = () => {
+  const [showForm, toggleShowForm] = useToggle(true);
   const [books, setBooks] = useState(INITIAL_BOOKS);
   const [sortBy, setSortBy] = useState(null);
+  const [search, setSearch] = useState('');
 
   const renderBookItems = () => {
     let booksCopy = [...books];
@@ -34,8 +38,12 @@ const BooksList = () => {
       }
     }
 
-    return booksCopy.map(book => (
-      <BookItem key={book.id} {...book} onDelete={() => onDeleteBook(book.id)} />
+    if (search) {
+      booksCopy = booksCopy.filter(book => book.title.toLowerCase().includes(search));
+    }
+
+    return booksCopy.map((book, i) => (
+      <BookItem key={book.id} number={i + 1} {...book} onDelete={() => onDeleteBook(book.id)} />
     ))
   }
 
@@ -62,8 +70,40 @@ const BooksList = () => {
     setBooks([...books, newBook])
   }
 
+  const onCreateBook = (book) => {
+    setBooks([
+      book,
+      ...books,
+    ])
+  }
+
+  const onChangeSearch = (event) => {
+    setSearch(event.target.value);
+  }
+
   return (
     <div className="BooksList">
+      { showForm && <BookForm onCreateBook={onCreateBook} /> }
+
+      <button className="btn btn-primary mb-1" onClick={toggleShowForm}>
+        {showForm ? 'Hide form' : 'Show form'}
+      </button>
+
+      <hr />
+
+      <div className="mb-3">
+        <label htmlFor="search" className="form-label">Search</label>
+        <input
+          className="form-control"
+          id="search"
+          name="search"
+          placeholder="Type a text to start filtering"
+          value={search}
+          onChange={onChangeSearch}
+          autoComplete="off"
+        />
+      </div>
+
       { books.length > 0
         ? (
           <>

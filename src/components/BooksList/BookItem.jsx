@@ -1,4 +1,4 @@
-const BookItem = ({ title, rating, awarded, id, onDelete }) => {
+const BookItem = ({ title, rating, awarded, onDelete, number }) => {
   const isAwarded = () => {
     if (awarded === true) {
       return 'Yes'
@@ -10,7 +10,7 @@ const BookItem = ({ title, rating, awarded, id, onDelete }) => {
 
   return (
     <tr>
-      <th scope="row">{id}</th>
+      <th scope="row">{number}</th>
       <td>{title}</td>
       <td>{rating}</td>
       <td>{isAwarded()}</td>
